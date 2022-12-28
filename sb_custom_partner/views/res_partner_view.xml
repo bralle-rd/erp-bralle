@@ -1,0 +1,58 @@
+<odoo>
+  <data>
+
+    <record id="sb_regimen_fiscal_replace" model="ir.ui.view">
+        <field name="name">SB Regimen Fiscal Replace</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="l10n_mx_edi_40.l10n_mx_edi_inh_40_res_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='l10n_mx_edi_fiscal_regime']" position="replace"/>
+        </field>
+    </record>
+
+
+    <record id="sb_res_partner_inherit" model="ir.ui.view">
+        <field name="name">SB Res Partner Inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <!-- <xpath expr="//page[@name='addenda']/field[@name='l10n_mx_edi_fiscal_regime']" position="replace">
+            </xpath> -->
+
+            <xpath expr="//field[@name='street']" position="replace">
+                <field name="street" placeholder="Calle"/>
+            </xpath>
+            
+            <!-- <field name="street" position="attributes">
+                <attribute name="placeholder">Calle</attribute>
+            </field> -->
+
+            <xpath expr="//form/sheet/div/h1" position="after">
+                <field name="nombre_comercial" placeholder="Nombre comercial" string="Nombre comercial" class="h3 mb24 text-break"/>
+            </xpath>
+
+            <xpath expr="//group[@name='misc']" position="before">
+                <group string="Crédito" name="credit" priority="3">
+                    <field name="credit_limit"/>
+                    <field name="dias_credito"/>
+                    <field name="con_credito"/>
+                </group>
+            </xpath>
+
+            <xpath expr="//notebook" position="inside">
+                <page name="info_cdfi" string="CFDI">
+                    <group>
+                        <group string="Datos CFDI" priority="1">
+                            <field name="l10n_mx_edi_fiscal_regime" string="Régimen Fiscal"/>
+                            <field name="forma_pago"/>
+                            <field name="methodo_pago"/>
+                            <field name="uso_cfdi"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+  </data>
+</odoo>
