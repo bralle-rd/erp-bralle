@@ -184,19 +184,20 @@ class ResPartnerInfoImportWizard(models.TransientModel):
                 if city_id:
                     #Buscar estado 
                     search_city = self.env['res.city'].search([('name', '=', city_id)], limit=1).id
-                    print("Ciudad encontrado=", search_city)
+                    # print("Ciudad encontrado=", search_city)
                     if not search_city:
                         search_city_id = self.env['res.city'].sudo().create({
                             'name': city_id, 
                             'state_id': self.env['res.country.state'].search([('name', '=', state_id)], limit=1).id if state_id else None,
                             'country_id': self.env['res.country'].search([('name', '=', country_id)], limit=1).id if country_id else 156})
                         search_city = search_city_id.id
-                        print("Información de ciudad creada=", search_city)
+                        # print("Información de ciudad creada=", search_city)
     
               
                 ###########Buscar cliente/proveedor
                 search_partner = self.env['res.partner'].search([('name', '=', name.upper())], limit=1) 
-                print("search_partner: ", search_partner)
+                # print("search_partner: ", search_partner)
+                _logger.info("Forma de pago= %s", forma_pago)
                 
                 if not search_partner:
                     info_partner = {
@@ -223,7 +224,7 @@ class ResPartnerInfoImportWizard(models.TransientModel):
                         #'user_id': 
                         'methodo_pago': methodo_pago,
                         'uso_cfdi': uso_cfdi,
-                        'forma_pago': '0'+forma_pago if forma_pago and len(str(forma_pago)) == 1 else forma_pago,
+                        'forma_pago': str(forma_pago), #'0'+forma_pago if forma_pago and len(str(forma_pago)) == 1 else forma_pago,
                         'property_account_position_id': property_account_position_id,
                         'customer_rank': 1,
                         # 'supplier_rank': 1,
