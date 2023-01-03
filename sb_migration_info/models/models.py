@@ -31,7 +31,7 @@ class ResPartnerInfoImportWizard(models.TransientModel):
     def import_file_csv_xlsx(self):
         """ Function to import product or update from csv or xlsx file """
         
-        row_size = 2000
+        row_size = 2001
         warn_msg = ''
         #Read file type .csv
         if self.option == 'csv':
@@ -47,6 +47,7 @@ class ResPartnerInfoImportWizard(models.TransientModel):
 
 
             number_lines = sum(1 for row in file_reader)
+            print("number_lines:", number_lines)
             if number_lines > row_size:
                 #Split file 
                 res = self.split_xlsx_or_csv(self.option, self.file, row_size)
@@ -172,7 +173,7 @@ class ResPartnerInfoImportWizard(models.TransientModel):
                 credit_limit = row[18].strip()#Límite de crédito
                 user_id = row[19].strip()#Vendedor
                 methodo_pago = row[22].strip()#Método de pago
-                uso_cfdi = row[23].strip()#Uso de cfdi
+                uso_cfdi = row[23].strip()#Uso de cfdi< czavsfegtjhjbga
                 forma_pago = row[25].strip()#Forma de pago
                 property_account_position_id = row[26].strip()#Registro fiscal
                 nombre_comercial = row[27].strip()#Nombre comercial
@@ -182,13 +183,13 @@ class ResPartnerInfoImportWizard(models.TransientModel):
                 # #########Buscar ciudad
                 if city_id:
                     #Buscar estado 
-                    search_city = self.env['res.city'].search([('name', '=', city_id)]).id
+                    search_city = self.env['res.city'].search([('name', '=', city_id)], limit=1).id
                     print("Ciudad encontrado=", search_city)
                     if not search_city:
                         search_city_id = self.env['res.city'].sudo().create({
                             'name': city_id, 
-                            'state_id': self.env['res.country.state'].search([('name', '=', state_id)]).id if state_id else None,
-                            'country_id': self.env['res.country'].search([('name', '=', country_id)]).id if country_id else 156})
+                            'state_id': self.env['res.country.state'].search([('name', '=', state_id)], limit=1).id if state_id else None,
+                            'country_id': self.env['res.country'].search([('name', '=', country_id)], limit=1).id if country_id else 156})
                         search_city = search_city_id.id
                         print("Información de ciudad creada=", search_city)
     
@@ -210,8 +211,8 @@ class ResPartnerInfoImportWizard(models.TransientModel):
                         'zip': zip,
                         'l10n_mx_edi_locality': l10n_mx_edi_locality,
                         'city_id': search_city,
-                        'state_id': self.env['res.country.state'].search([('name', '=', state_id)]).id if state_id else None, 
-                        'country_id': self.env['res.country'].search([('name', '=', country_id)]).id if country_id else 156,
+                        'state_id': self.env['res.country.state'].search([('name', '=', state_id)], limit=1).id if state_id else None, 
+                        'country_id': self.env['res.country'].search([('name', '=', country_id)], limit=1).id if country_id else 156,
                         'phone': phone,
                         'website': website,
                         'l10n_mx_edi_curp': l10n_mx_edi_curp,

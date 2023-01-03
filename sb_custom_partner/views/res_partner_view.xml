@@ -10,26 +10,46 @@
         </field>
     </record>
 
+    <!--Sucursal de banco del proveedor-->
+    <record id="sb_sucursal_banco_form_inherit" model="ir.ui.view">
+        <field name="name">SB Sucursal Banco Inherit</field>
+        <field name="model">res.partner.bank</field>
+        <field name="inherit_id" ref="account.view_partner_bank_form_inherit_account"/>
+        <field name="arch" type="xml">
+            <field name="l10n_mx_edi_clabe" position="after">
+                <field name="sucursal"/>
+            </field> 
+        </field>
+    </record>
+
 
     <record id="sb_res_partner_inherit" model="ir.ui.view">
         <field name="name">SB Res Partner Inherit</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
-            <!-- <xpath expr="//page[@name='addenda']/field[@name='l10n_mx_edi_fiscal_regime']" position="replace">
-            </xpath> -->
-
-            <xpath expr="//field[@name='street']" position="replace">
-                <field name="street" placeholder="Calle"/>
-            </xpath>
-            
-            <!-- <field name="street" position="attributes">
-                <attribute name="placeholder">Calle</attribute>
-            </field> -->
-
+ 
             <xpath expr="//form/sheet/div/h1" position="after">
                 <field name="nombre_comercial" placeholder="Nombre comercial" string="Nombre comercial" class="h3 mb24 text-break"/>
             </xpath>
+
+            <field name="category_id" position="after">
+                <field name="industry_id"/>
+            </field> 
+
+            <xpath expr="//form/sheet/notebook/page[@name='accounting']/group[1]/group[1]/field[@name='bank_ids']" position="replace">
+                <field name="bank_ids" nolabel="1" colspan="2" context="{'default_allow_out_payment': True}">
+                    <tree editable="bottom">
+                        <field name="sequence" widget="handle"/>
+                        <field name="bank_id"/>
+                        <field name="sucursal"/>
+                        <field name="acc_number"/>
+                        <field name="l10n_mx_edi_clabe"/>
+                        <field name="allow_out_payment" widget="boolean_toggle"/>
+                        <field name="acc_holder_name" invisible="1"/>
+                    </tree>
+                </field>
+             </xpath>
 
             <xpath expr="//group[@name='misc']" position="before">
                 <group string="Crédito" name="credit" priority="3">
