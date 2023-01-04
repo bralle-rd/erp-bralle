@@ -202,6 +202,7 @@ class ResPartnerInfoImportWizard(models.TransientModel):
                 if not search_partner:
                     info_partner = {
                         'ref': ref, 
+                        'company_type': 'person' if str(len(vat)) == 13 else 'company',
                         'name': name,
                         'nombre_comercial': nombre_comercial,
                         'vat': vat,
