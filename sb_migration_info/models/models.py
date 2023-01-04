@@ -228,12 +228,7 @@ class ResPartnerInfoImportWizard(models.TransientModel):
                         'forma_pago': forma_pago,
                         'property_account_position_id': property_account_position_id,
                         'customer_rank': 1,
-                        # 'supplier_rank': 1,
-                        # 'bank_ids': [(0,0, {
-                        #     'reg_no':4200,
-                        #     'stud_email':'anbulove@gmail.com',
-                        #     'stud_phone':'9788987689',
-                        # })]
+                        'lang': 'es_MX'
                     }
                     _logger.info("Crear partner= %s", info_partner)
                     self.env['res.partner'].sudo().create(info_partner)
@@ -328,7 +323,6 @@ class ResPartnerInfoImportWizard(models.TransientModel):
                     }
                     _logger.info("Actualizar producto= %s", info_product)
         return True
-
 
 
 
