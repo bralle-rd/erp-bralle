@@ -31,7 +31,7 @@ class ResPartnerInfoImportWizard(models.TransientModel):
     def import_file_csv_xlsx(self):
         """ Function to import product or update from csv or xlsx file """
         
-        row_size = 2001
+        row_size = 2000
         warn_msg = ''
         #Read file type .csv
         if self.option == 'csv':
