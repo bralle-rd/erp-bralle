@@ -224,7 +224,7 @@ class ResPartnerInfoImportWizard(models.TransientModel):
                         #'user_id': 
                         'methodo_pago': methodo_pago,
                         'uso_cfdi': uso_cfdi,
-                        'forma_pago': str(forma_pago), #'0'+forma_pago if forma_pago and len(str(forma_pago)) == 1 else forma_pago,
+                        'forma_pago': forma_pago,
                         'property_account_position_id': property_account_position_id,
                         'customer_rank': 1,
                         # 'supplier_rank': 1,
