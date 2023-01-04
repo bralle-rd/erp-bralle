@@ -222,7 +222,7 @@ class ResPartnerInfoImportWizard(models.TransientModel):
                         'dias_credito': dias_credito,
                         'credit_limit': credit_limit,
                         #'user_id': 
-                        'methodo_pago': methodo_pago,
+                        'methodo_pago': methodo_pago.upper() if methodo_pago else None,
                         'uso_cfdi': uso_cfdi,
                         'forma_pago': forma_pago,
                         'property_account_position_id': property_account_position_id,
